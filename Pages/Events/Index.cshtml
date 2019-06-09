@@ -1,0 +1,92 @@
+﻿@page
+@model ForgetMeNot.Pages.Events.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+
+
+<div>
+    <a asp-page="./Create">Create</a>
+</div>
+
+<div id="calendar"></div>
+<link href="~/lib/fullcalendar/packages/core/main.css" rel="stylesheet" />
+<link href="~/lib/fullcalendar/packages/daygrid/main.css" rel="stylesheet" />
+<link href="~/css/tooltip.css" rel="stylesheet" />
+
+@section Scripts{
+    <script src="~/lib/fullcalendar/packages/core/main.js"></script>
+    <script src="~/lib/fullcalendar/packages/interaction/main.js"></script>
+    <script src="~/lib/fullcalendar/packages/daygrid/main.js"></script>
+    <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var events = [];
+            $.ajax({
+                type: "GET",
+                url: "/Event/GetEvents",
+                success: function (data) {
+                    $.each(data, function (i, v) {
+                        events.push({
+                            title: v.name,
+                            description: v.likes,
+                            start: v.date,
+                            end: v.date,
+                            allDay: true,
+                            url: 'https://www.google.com'
+                        })
+                    })
+
+                    GenerateCalendar(events);
+                },
+                error: function (error) {
+                    alert('failed');
+                }
+            })
+
+            function GenerateCalendar(events) {
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    plugins: ['dayGrid', 'interaction'],
+                    defaultView: 'dayGridMonth',
+                    events: events,
+                    eventRender: function (info) {
+                        var tooltip = new Tooltip(info.el, {
+                            title: 'Likes: ' + info.event.extendedProps.description,
+                            placement: 'top',
+                            trigger: 'hover',
+                            container: 'body'
+                        });
+                    },
+                    eventClick: function (info) {
+                        info.jsEvent.preventDefault(); // don't let the browser navigate
+
+                        if (info.event.url) {
+                            var str = info.event.extendedProps.description
+                            var strSplit = str.split(';');
+                            for (var i = 0; i < strSplit.length; i++){
+                                var entry = strSplit[i];
+                                window.open(info.event.url + '/search?safe=off&tbm=shop&q=' + entry);
+                            }
+                            
+                        }
+                    }
+                });
+
+                calendar.render();
+            }
+        });
+    </script>
+
+}
+
+
+
+
+
+

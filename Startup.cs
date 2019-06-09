@@ -52,12 +52,12 @@ namespace ForgetMeNot
             o.TokenLifespan = TimeSpan.FromHours(3));
 
             //add google oauth
-            services.AddAuthentication()
-                .AddGoogle(googleOptions => 
-                {
-                    googleOptions.ClientId= Configuration["Authentication:Google:ClientId"];
-                    googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
-                });
+          //  services.AddAuthentication()
+          //      .AddGoogle(googleOptions => 
+          //      {
+         //           googleOptions.ClientId= Configuration["Authentication:Google:ClientId"];
+        //            googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+         //       });
 
             // requires
             // using Microsoft.AspNetCore.Identity.UI.Services;

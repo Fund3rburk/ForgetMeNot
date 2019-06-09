@@ -121,7 +121,7 @@ Bugfixes:
 - when custom view navigates completely into hidden weekends, JS error ([scheduler-375])
 
 Other:
-- in themes.html fmn, fixed broken Bootswatch themes (#3917)
+- in themes.html demo, fixed broken Bootswatch themes (#3917)
 - moved JavaScript codebase over to TypeScript
   (same external API; embedded typedefs coming soon)
 
@@ -192,7 +192,7 @@ Features:
 	- via `themeSystem: 'bootstrap3'` (the `theme` option is deprecated)
 	- new `bootstrapGlyphicons` option
 	- jQuery UI "Cupertino" theme no longer included in zip archive
-	- improved theme switcher on fmn page (#1436)
+	- improved theme switcher on demo page (#1436)
 	(big thanks to @joankaradimov)
 - 25% event rendering performance improvement across the board (#2524)
 - console message for unknown method/calendar (#3253)
